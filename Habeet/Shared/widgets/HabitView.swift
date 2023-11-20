@@ -11,52 +11,51 @@ struct HabitView: View {
     var title: String
     var frequency: String
     var icon: String
+    
     @Binding var isDone: Bool
 
     var action: () -> Void
 
     var body: some View {
         HStack (spacing: 18) {
-            ZStack {
-                Circle()
-                    .frame(height: 54)
-                    .foregroundStyle(.grayline.opacity(0.6))
-                
-                Text(icon)
-            }
-            
-            VStack (alignment: .leading, spacing: 4) {
-                Text(title)
-                    .font(.headline.bold())
-                HStack {
-                    Image(systemName: "repeat")
+                ZStack {
+                    Circle()
+                        .frame(height: 54)
+                        .foregroundStyle(.grayline.opacity(0.6))
                     
-                    Text(frequency)
-                        .font(.callout)
+                    Text(icon)
                 }
-                .foregroundStyle(.gray)
                 
-            }
+                VStack (alignment: .leading, spacing: 4) {
+                    Text(title)
+                        .font(.headline.bold())
+                    HStack {
+                        Image(systemName: "repeat")
+                        
+                        Text(frequency)
+                            .font(.callout)
+                    }
+                    .foregroundStyle(.gray)
+                    
+                }
+            
             
             Spacer()
           
-            
-            Button {
+            ZStack{
+                Circle()
+                    .frame(height: 40)
+                    .foregroundStyle(isDone ? Color.green : Color.grayline)
+                
+                Image(systemName: "checkmark")
+                    .foregroundStyle(isDone ? Color.white : Color.gray)
+                    .imageScale(isDone ? .medium : .small)
+            }
+            .onTapGesture {
                 withAnimation {
                        isDone.toggle()
                        action()
                    }
-            } label: {
-                ZStack{
-                    Circle()
-                        .frame(height: 40)
-                        .foregroundStyle(isDone ? Color.green : Color.grayline)
-                    
-                    Image(systemName: "checkmark")
-                        .foregroundStyle(isDone ? Color.white : Color.gray)
-                        .imageScale(isDone ? .medium : .small)
-                }
-                
             }
             //Checkmark
             

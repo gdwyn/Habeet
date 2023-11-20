@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct Home: View {
-    @StateObject var habits = Habits()
-    
-    @State private var num = 0
+    @ObservedObject var habits = Habits()
+
     @State private var showAddHabit = false
+    
+    var completedHabits: Int {
+            habits.items.filter { $0.isDone }.count
+        }
     
     var body: some View {
         VStack (spacing: 28) {
             
             HStack {
                 VStack (alignment: .leading, spacing: 8) {
-                    Text("Hey 👋 \(num)")
+                    Text("Hey 👋 \(completedHabits)")
                         .font(.title2.bold())
                     Text("Let's build some good habits")
                         .font(.callout)
@@ -28,51 +31,62 @@ struct Home: View {
                 Spacer()
                 
                 CustomButton(title: "Add", icon: "plus") {
-                    withAnimation{
-                        habits.items.append(HabitItem(title: "Gym", icon: "💪", frequency: "Everyday", isDone: false))
-                        
+                    withAnimation(Animation.linear(duration: 0.5)) {
+                        habits.items.insert(HabitItem(title: "Gym", icon: "💪", frequency: "Everyday", isDone: false), at: 0)
                     }
-                }
-            }
-            // welcome text
-            
-            ScrollView(showsIndicators: false) {
-                Color.gray.opacity(0.3)
-                    .frame(height: 65)
-                
-                Color.gray.opacity(0.3)
-                    .frame(width: 180, height: 180)
-                    .clipShape(Circle())
-                    .padding(.top)
-                
-                VStack (alignment: .leading, spacing: 14) {
-                    Text("Today")
-                        .font(.title2.bold())
-                    
-                    ForEach(habits.items.indices, id: \.self) { index in
-                        HabitView(
-                            title: habits.items[index].title,
-                            frequency: habits.items[index].frequency,
-                            icon: habits.items[index].icon,
-                            isDone: $habits.items[index].isDone
-                        ) {
-                            // Your action closure here
-                            if habits.items[index].isDone {
-                                num += 1
-                            }
-                        }
-                        .padding(.bottom, 8)
-                    }
+                    print(habits.items)
 
                 }
             }
+            .padding(.horizontal, 20)
+            // welcome text
+            
+            List {
+                VStack {
+                    Color.gray.opacity(0.3)
+                        .frame(height: 65)
+                    
+                    Color.gray.opacity(0.3)
+                        .frame(width: 180, height: 180)
+                        .clipShape(Circle())
+                        .padding(.top)
+                    
+                }
+
+                Text("Today")
+                    .font(.title2.bold())
+                
+                ForEach(habits.items.indices, id: \.self) { index in
+                    HabitView(
+                        title: habits.items[index].title,
+                        frequency: habits.items[index].frequency,
+                        icon: habits.items[index].icon,
+                        isDone: $habits.items[index].isDone
+                    ) {
+                       // DO SOMETHING HERE
+                        
+                    }
+                    .padding(.bottom, 0)
+                    
+                }
+                .onDelete(perform: removeHabitItem)
+                //.listRowInsets(EdgeInsets())
+                .listRowBackground(Color.clear)
+
+
+            }
+            .listStyle(.plain)
             .ignoresSafeArea()
             // scroll view
             
             
         }
         // parent vstack
-        .padding(.horizontal)
+        //.padding(.horizontal)
+    }
+    
+    func removeHabitItem (at offset : IndexSet) {
+        habits.items.remove(atOffsets: offset)
     }
 }
 

@@ -8,6 +8,7 @@
 import Foundation
 
 class Habits : ObservableObject {
+    
     @Published var items = [HabitItem]() {
         didSet {
             let encoder = JSONEncoder()
@@ -28,5 +29,7 @@ class Habits : ObservableObject {
         }
         
         items = []
+        
+
     }
 }
