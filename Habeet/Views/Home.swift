@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct Home: View {
-    @ObservedObject var habits = Habits()
+    @StateObject var habits = Habits()
 
     @State private var showAddHabit = false
     
@@ -31,10 +31,10 @@ struct Home: View {
                 Spacer()
                 
                 CustomButton(title: "Add", icon: "plus") {
-                    withAnimation(Animation.linear(duration: 0.5)) {
-                        habits.items.insert(HabitItem(title: "Gym", icon: "💪", frequency: "Everyday", isDone: false), at: 0)
-                    }
-                    print(habits.items)
+                    showAddHabit = true
+//                    withAnimation(Animation.linear(duration: 0.5)) {
+//                        habits.items.insert(HabitItem(title: "Gym", icon: "💪", frequency: "Everyday", isDone: false), at: 0)
+//                    }
 
                 }
             }
@@ -83,6 +83,9 @@ struct Home: View {
         }
         // parent vstack
         //.padding(.horizontal)
+            .sheet(isPresented: $showAddHabit) {
+                AddHabit(habits: habits)
+            }
     }
     
     func removeHabitItem (at offset : IndexSet) {
@@ -92,5 +95,5 @@ struct Home: View {
 
 
 #Preview {
-    Home()
+    Home(habits: Habits())
 }
