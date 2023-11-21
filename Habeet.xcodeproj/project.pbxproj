@@ -12,6 +12,7 @@
 		CE4477462B0A866300A8C14D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4477452B0A866300A8C14D /* ContentView.swift */; };
 		CE4477482B0A866600A8C14D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4477472B0A866600A8C14D /* Assets.xcassets */; };
 		CE44774B2B0A866600A8C14D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE44774A2B0A866600A8C14D /* Preview Assets.xcassets */; };
+		CEC19E272B0CD09C008E6091 /* WeekDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC19E262B0CD09C008E6091 /* WeekDays.swift */; };
 		CEE7A9842B0A933000D249BF /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE7A9832B0A933000D249BF /* Home.swift */; };
 		CEE7A9872B0A966200D249BF /* HabitItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE7A9862B0A966200D249BF /* HabitItem.swift */; };
 		CEE7A98A2B0A98A100D249BF /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE7A9892B0A98A100D249BF /* ColorExtension.swift */; };
@@ -28,6 +29,7 @@
 		CE4477452B0A866300A8C14D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CE4477472B0A866600A8C14D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE44774A2B0A866600A8C14D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CEC19E262B0CD09C008E6091 /* WeekDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDays.swift; sourceTree = "<group>"; };
 		CEE7A9832B0A933000D249BF /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		CEE7A9862B0A966200D249BF /* HabitItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitItem.swift; sourceTree = "<group>"; };
 		CEE7A9892B0A98A100D249BF /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				CEE7A9802B0A90FD00D249BF /* Views */,
 				CEE7A9852B0A942700D249BF /* Shared */,
+				CEC19E252B0CD03F008E6091 /* Utils */,
 				CE4477432B0A866300A8C14D /* HabeetApp.swift */,
 				CE4477452B0A866300A8C14D /* ContentView.swift */,
 				CE4477472B0A866600A8C14D /* Assets.xcassets */,
@@ -83,6 +86,14 @@
 				CE44774A2B0A866600A8C14D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CEC19E252B0CD03F008E6091 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CEC19E262B0CD09C008E6091 /* WeekDays.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		CEE7A9802B0A90FD00D249BF /* Views */ = {
@@ -195,6 +206,7 @@
 			files = (
 				CEE7A98F2B0AA79900D249BF /* HexExtension.swift in Sources */,
 				CE4477462B0A866300A8C14D /* ContentView.swift in Sources */,
+				CEC19E272B0CD09C008E6091 /* WeekDays.swift in Sources */,
 				CEE7A9932B0ACB3300D249BF /* Habits.swift in Sources */,
 				CEE7A9872B0A966200D249BF /* HabitItem.swift in Sources */,
 				CEE7A9912B0ABD9900D249BF /* CustomButton.swift in Sources */,

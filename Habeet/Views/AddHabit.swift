@@ -15,7 +15,7 @@ struct AddHabit: View {
     @State private var frequency = ""
     @State private var selectedDays = [String]()
     
-    let icons = ["💪", "🏋️‍♀️", "🚀", "⚡️", "👋", "🎉", "🙏", "✌️", "🔥", "🍔"]
+    let icons = ["💪", "🏋️‍♀️", "🚀", "⚡️", "👋", "🎉", "🙏", "✌️", "🔥", "🍔", "📖"]
     let days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
     
     @Environment(\.dismiss) var dismiss

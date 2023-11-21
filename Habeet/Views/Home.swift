@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Home: View {
     @StateObject var habits = Habits()
+    @StateObject var weekDays = WeekDays()
 
     @State private var showAddHabit = false
     
@@ -32,9 +33,6 @@ struct Home: View {
                 
                 CustomButton(title: "Add", icon: "plus") {
                     showAddHabit = true
-//                    withAnimation(Animation.linear(duration: 0.5)) {
-//                        habits.items.insert(HabitItem(title: "Gym", icon: "💪", frequency: "Everyday", isDone: false), at: 0)
-//                    }
 
                 }
             }
@@ -43,8 +41,16 @@ struct Home: View {
             
             List {
                 VStack {
-                    Color.gray.opacity(0.3)
-                        .frame(height: 65)
+                    
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack (spacing: 10) {
+                            ForEach(weekDays.currentWeek, id: \.self) { day in
+                                
+                                Text(day.formatted(date: .abbreviated, time: .omitted))
+                            }
+                        }
+                    }
+                    // week view
                     
                     Color.gray.opacity(0.3)
                         .frame(width: 180, height: 180)
@@ -70,7 +76,6 @@ struct Home: View {
                     
                 }
                 .onDelete(perform: removeHabitItem)
-                //.listRowInsets(EdgeInsets())
                 .listRowBackground(Color.clear)
 
 
@@ -82,7 +87,6 @@ struct Home: View {
             
         }
         // parent vstack
-        //.padding(.horizontal)
             .sheet(isPresented: $showAddHabit) {
                 AddHabit(habits: habits)
             }
