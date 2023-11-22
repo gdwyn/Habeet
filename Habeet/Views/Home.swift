@@ -8,17 +8,28 @@
 import SwiftUI
 
 struct Home: View {
+    
     @StateObject var habits = Habits()
     @StateObject var weekDays = WeekDays()
 
     @State private var showAddHabit = false
     
+    @State private var progress = 0.01
+    
     var completedHabits: Int {
             habits.items.filter { $0.isDone }.count
         }
     
+    var totalHabits: Int {
+            habits.items.count
+        }
+    
+//    init() {
+//            UITableView.appearance().showsVerticalScrollIndicator = false
+//        }
+    
     var body: some View {
-        VStack (spacing: 28) {
+        VStack (spacing: 40) {
             
             HStack {
                 VStack (alignment: .leading, spacing: 8) {
@@ -39,49 +50,61 @@ struct Home: View {
             .padding(.horizontal, 20)
             // welcome text
             
-            List {
+        List {
                 VStack {
                     
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack (spacing: 10) {
                             ForEach(weekDays.currentWeek, id: \.self) { day in
                                 
-                                Text(day.formatted(date: .abbreviated, time: .omitted))
+                                VStack{
+                                    Text(weekDays.extractDate(date: day, format: "EEE"))
+                                    
+                                    Text(weekDays.extractDate(date: day, format: "dd"))
+                                }
                             }
                         }
                     }
                     // week view
                     
-                    Color.gray.opacity(0.3)
-                        .frame(width: 180, height: 180)
-                        .clipShape(Circle())
-                        .padding(.top)
-                    
-                }
+                    CircleChart(progress: CGFloat(progress), completedPercent: completedHabits)
+                        .padding(.top, 40)
 
-                Text("Today")
-                    .font(.title2.bold())
-                
-                ForEach(habits.items.indices, id: \.self) { index in
-                    HabitView(
-                        title: habits.items[index].title,
-                        frequency: habits.items[index].frequency,
-                        icon: habits.items[index].icon,
-                        isDone: $habits.items[index].isDone
-                    ) {
-                       // DO SOMETHING HERE
+                }
+                .padding(.bottom, 40)
+                //week view and chart
+
+                    Text("Today")
+                        .font(.title2.bold())
+                    
+                    ForEach(habits.items.indices, id: \.self) { index in
+                        HabitView(
+                            title: habits.items[index].title,
+                            frequency: habits.items[index].frequency,
+                            icon: habits.items[index].icon,
+                            isDone: $habits.items[index].isDone
+                        ) {
+                            // set progress
+                            getProgress()
+                            
+                            //store progress
+                            UserDefaults.standard.set(progress, forKey: "progress")
+                        }
+                        .padding(.bottom, 1)
                         
                     }
-                    .padding(.bottom, 0)
-                    
-                }
-                .onDelete(perform: removeHabitItem)
-                .listRowBackground(Color.clear)
+                    .onDelete(perform: removeHabitItem)
+                    //.listRowBackground(Color.clear)
+                
+                // today habits vstack
 
 
             }
+            //.listRowInsets(EdgeInsets())
             .listStyle(.plain)
             .ignoresSafeArea()
+            .scrollIndicators(ScrollIndicatorVisibility.hidden)
+                              
             // scroll view
             
             
@@ -90,14 +113,37 @@ struct Home: View {
             .sheet(isPresented: $showAddHabit) {
                 AddHabit(habits: habits)
             }
+        
+            .onAppear {
+                        // Retrieve progress from UserDefaults on view appear
+                        if let storedProgress = UserDefaults.standard.value(forKey: "progress") as? Double {
+                            progress = storedProgress
+                        }
+                    }
+            .onChange(of: totalHabits) {
+              getProgress()
+            }
+
     }
     
     func removeHabitItem (at offset : IndexSet) {
-        habits.items.remove(atOffsets: offset)
+        withAnimation{
+            habits.items.remove(atOffsets: offset)
+        }
+    }
+    
+    func getProgress() {
+        withAnimation{
+            if totalHabits == 0 {
+                progress = 0.001
+            } else {
+                progress = Double(completedHabits) / Double(totalHabits)
+            }
+        }
     }
 }
 
 
 #Preview {
-    Home(habits: Habits())
+    Home()
 }

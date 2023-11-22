@@ -32,8 +32,16 @@ class WeekDays: ObservableObject {
                 currentWeek.append(weekDay)
             }
             
-            
         }
+    }
+    
+    //extracting date
+    func extractDate(date: Date, format: String) -> String {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = format
+        
+        return formatter.string(from: date)
     }
 }
 

@@ -32,7 +32,7 @@ struct AddHabit: View {
                     let habit = HabitItem(title: title, icon: habitIcon, frequency: frequency, isDone: false)
                     
                     // append created habit
-                    habits.items.append(habit)
+                    habits.items.insert(habit, at: 0)
                     
                     //dismiss sheet after creating habit
                     dismiss()
