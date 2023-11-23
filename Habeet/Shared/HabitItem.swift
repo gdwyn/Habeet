@@ -13,5 +13,6 @@ struct HabitItem: Identifiable, Codable {
     let icon: String
     let frequency: String
     var isDone: Bool
+    var days : [String]
     
 }

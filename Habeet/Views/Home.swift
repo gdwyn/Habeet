@@ -16,6 +16,10 @@ struct Home: View {
     
     @State private var progress = 0.0
     
+    @State private var displayedDay = ""
+    
+    @State private var habitIsDone = false
+    
     var completedHabits: Int {
             habits.items.filter { $0.isDone }.count
         }
@@ -29,7 +33,7 @@ struct Home: View {
             
             HStack {
                 VStack (alignment: .leading, spacing: 8) {
-                    Text("Hey 👋 ")
+                    Text("Hey 👋")
                         .font(.title2.bold())
                     Text("Let's build some good habits")
                         .font(.callout)
@@ -40,7 +44,7 @@ struct Home: View {
                 
                 CustomButton(title: "Add", icon: "plus") {
                     showAddHabit = true
-
+                    
                 }
             }
             .padding(.horizontal, 20)
@@ -53,6 +57,10 @@ struct Home: View {
                         HStack (spacing: 14) {
                             ForEach(weekDays.currentWeek, id: \.self) { day in
                                 
+                                Button {
+                                    displayedDay = weekDays.extractDate(date: day, format:"EEE")
+                                } label: {
+                                    
                                 VStack (spacing: 10) {
                                     Text(weekDays.extractDate(date: day, format: "EEE"))
                                         .font(.caption)
@@ -63,14 +71,15 @@ struct Home: View {
                                             .font(.subheadline)
                                             .foregroundStyle((weekDays.extractDate(date: day, format: "dd")) == (weekDays.extractDate(date: Date(), format: "dd")) ? .white : .white.opacity(0.8))
                                         
-                                        WeekNumberCircle(progress: progress, arcColor: 
-                                                      
-                                            (weekDays.extractDate(date: day, format: "dd")) == (weekDays.extractDate(date: Date(), format: "dd")) ? .white : .grayline
+                                        WeekNumberCircle(progress: progress, arcColor:
+                                                            
+                                                            (weekDays.extractDate(date: day, format: "dd")) == (weekDays.extractDate(date: Date(), format: "dd")) ? .white : .grayline
                                                          
                                         )
                                         
                                     }
                                     .padding(.bottom, 2)
+                                }
                                 }
                             }
                         }
@@ -86,8 +95,13 @@ struct Home: View {
 
                     Text("My habits")
                         .font(.title2.bold())
-                    
-                    ForEach(habits.items.indices, id: \.self) { index in
+                        .listRowSeparator(.hidden)
+
+
+            
+            if habits.items.contains(where: { $0.days.contains(displayedDay) }) {
+                ForEach(habits.items.indices, id: \.self) { index in
+                    if habits.items[index].days.contains(displayedDay) {
                         HabitView(
                             title: habits.items[index].title,
                             frequency: habits.items[index].frequency,
@@ -96,18 +110,26 @@ struct Home: View {
                         ) {
                             // set progress
                             getProgress()
-                            
-                            //store progress
+
+                            // store progress
                             UserDefaults.standard.set(progress, forKey: "progress")
                         }
                         .padding(.bottom, 1)
-                        
                     }
-                    .onDelete(perform: removeHabitItem)
-                    //.listRowBackground(Color.clear)
+                }
+                .onDelete(perform: removeHabitItem)
+                .listRowSeparator(.hidden)
                 
-                // today habits vstack
+            } else {
+                // improve ui
+                Text("No habits for today")
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 1)
+                    .listRowSeparator(.hidden)
 
+            }
+
+           
 
             }
             //.listRowInsets(EdgeInsets())
@@ -129,6 +151,9 @@ struct Home: View {
                 if let storedProgress = UserDefaults.standard.value(forKey: "progress") as? Double {
                     progress = storedProgress
                 }
+                
+                //set day
+                displayedDay = weekDays.extractDate(date: Date(), format:"EEE")
             }
             .onChange(of: totalHabits) {
               getProgress()

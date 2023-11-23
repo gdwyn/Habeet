@@ -16,7 +16,7 @@ struct AddHabit: View {
     @State private var selectedDays = [String]()
     
     let icons = ["💪", "🏋️‍♀️", "🚀", "⚡️", "👋", "🎉", "🙏", "✌️", "🔥", "🍔", "📖"]
-    let days = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]
+    let days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     
     @Environment(\.dismiss) var dismiss
     
@@ -29,7 +29,7 @@ struct AddHabit: View {
                 CustomButton(title: "Create", icon: "plus") {
                     
                     // create new habit
-                    let habit = HabitItem(title: title, icon: habitIcon, frequency: frequency, isDone: false)
+                    let habit = HabitItem(title: title, icon: habitIcon, frequency: frequency, isDone: false, days: selectedDays)
                     
                     // append created habit
                     habits.items.insert(habit, at: 0)
@@ -130,7 +130,7 @@ struct AddHabit: View {
         {
             frequency = "Weekdays"
             
-        } else if selectedDays.contains("Sa") && selectedDays.contains("Su") && !selectedDays.contains(where: { ["Mo", "Tu", "We", "Th", "Fr"].contains($0) }) {
+        } else if selectedDays.contains("Sat") && selectedDays.contains("Sun") && !selectedDays.contains(where: { ["Mon", "Tue", "Wed", "Thu", "Fri"].contains($0) }) {
             frequency = "Weekends"
                 
                 

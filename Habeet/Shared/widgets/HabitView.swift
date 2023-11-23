@@ -64,7 +64,7 @@ struct HabitView: View {
             .padding(18)
             .overlay(
                 RoundedRectangle(cornerRadius: 28)
-                    .stroke(Color.grayline, lineWidth: 1)
+                    .stroke(Color.grayline.opacity(0.6), lineWidth: 1)
             )
             
         }
