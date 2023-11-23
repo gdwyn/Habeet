@@ -27,8 +27,20 @@ struct Home: View {
     var totalHabits: Int {
             habits.items.count
         }
+    
+    
+    
+    var filteredHabitsCount: Int {
+        let filteredHabits = habits.items.filter { $0.days.contains(displayedDay) }
+        return filteredHabits.count
+    }
+
+    var completedHabitsForDay: Int {
+        habits.items.filter { $0.isDone && $0.days.contains(displayedDay) }.count
+    }
         
     var body: some View {
+        
         VStack (spacing: 34) {
             
             HStack {
@@ -69,13 +81,17 @@ struct Home: View {
                                     ZStack {
                                         Text(weekDays.extractDate(date: day, format: "dd"))
                                             .font(.subheadline)
-                                            .foregroundStyle((weekDays.extractDate(date: day, format: "dd")) == (weekDays.extractDate(date: Date(), format: "dd")) ? .white : .white.opacity(0.8))
+                                            .foregroundStyle((weekDays.extractDate(date: day, format: "dd")) == (weekDays.extractDate(date: Date(), format: "dd")) ? .white : .gray)
                                         
-                                        WeekNumberCircle(progress: progress, arcColor:
-                                                            
-                                                            (weekDays.extractDate(date: day, format: "dd")) == (weekDays.extractDate(date: Date(), format: "dd")) ? .white : .grayline
-                                                         
-                                        )
+                                        if (weekDays.extractDate(date: day, format: "EEE")) == displayedDay {
+                                            WeekNumberCircle(
+                                                progress: CGFloat(progress),
+                                                arcColor: (weekDays.extractDate(date: day, format: "EEE")) == displayedDay ? .white : .grayline)
+                                        } else {
+                                            Circle()
+                                                    .stroke(Color.clear, lineWidth: 2)
+                                                    .frame(width: 38, height: 38)
+                                        }
                                         
                                     }
                                     .padding(.bottom, 2)
@@ -86,7 +102,7 @@ struct Home: View {
                     }
                     // week view
                     
-                    CircleChart(progress: CGFloat(progress), progressText: "\(completedHabits)/\(totalHabits) habits")
+                    CircleChart(progress: CGFloat(progress), progressText: "\(completedHabitsForDay)/\(filteredHabitsCount) habits")
                         .padding(.top, 40)
 
                 }
@@ -158,6 +174,10 @@ struct Home: View {
             .onChange(of: totalHabits) {
               getProgress()
             }
+        
+            .onChange(of: displayedDay) {
+                getProgress()
+            }
 
     }
     
@@ -169,10 +189,11 @@ struct Home: View {
     
     func getProgress() {
         withAnimation {
-            if totalHabits == 0 {
+            if filteredHabitsCount == 0 {
                 progress = 0.0
             } else {
-                progress = Double(completedHabits) / Double(totalHabits)
+                progress = Double(completedHabitsForDay) / Double(filteredHabitsCount)
+                
             }
         }
     }

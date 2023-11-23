@@ -30,18 +30,25 @@ struct CircleChart: View {
 
 
             // Percentage text
-            VStack(spacing: 4) {
-                Text("\(Int(progress * 100))%")
-                    .font(.title3)
-                    .fontWeight(.medium)
+            VStack (spacing: 4) {
+                if progress.isFinite {
+                    Text("\(Int(progress * 100))%")
+                        .font(.title3)
+                        .fontWeight(.medium)
+                } else {
+                    Text("0%")
+                        .font(.title3)
+                        .fontWeight(.medium)
+                }
                 
                 Text(progressText)
                     .font(.subheadline)
                     .foregroundStyle(.gray)
+                }
             }
         }
     }
-}
+
 
 #Preview {
     CircleChart()
