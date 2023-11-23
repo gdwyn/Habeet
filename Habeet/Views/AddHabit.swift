@@ -52,19 +52,18 @@ struct AddHabit: View {
                             .padding(.horizontal)
                         
                         ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
+                            HStack (spacing: 16) {
                                 ForEach (icons, id: \.self) { icon in
                                     Button {
-                                        // TODO: do somn
                                         habitIcon = icon
                                     } label: {
                                         Text(icon)
-                                            .font(.title2)
+                                            .frame(width: 32, height: 32)
                                             .padding(18)
+                                            .font(.title2)
                                             .background(habitIcon == icon ? .white : .grayline.opacity(0.6))
                                             .clipShape(Circle())
                                     }
-                                    .padding(.trailing, 8)
                                 }
                             }
                             .padding(.horizontal)
@@ -73,13 +72,22 @@ struct AddHabit: View {
                     // MARK:  icons
                     
                     VStack(alignment: .leading, spacing: 18) {
-                        Text("Frequency")
-                            .font(.callout)
-                            .foregroundStyle(.gray)
-                            .padding(.horizontal)
+                        HStack {
+                            Text("Frequency")
+                                .font(.callout)
+                                .foregroundStyle(.gray)
+                            
+                            Spacer()
+                            
+                            Text(frequency)
+                                .foregroundStyle(.white)
+                                .font(.subheadline)
+                        }
+                        .padding(.horizontal)
+
                         
                         ScrollView(.horizontal, showsIndicators: false) {
-                            HStack {
+                            HStack (spacing: 16) {
                                 ForEach (days, id: \.self) { day in
                                     Button {
                                         // TODO: do somn
@@ -92,23 +100,21 @@ struct AddHabit: View {
                                         
                                     } label: {
                                         Text(day)
-                                            .foregroundStyle(selectedDays.contains(day) ? .black : .gray)
-                                            .font(.title2)
+                                            .frame(width: 32, height: 32)
                                             .padding(18)
+                                            .foregroundStyle(selectedDays.contains(day) ? .black : .gray)
+                                            .font(.subheadline)
                                             .background(selectedDays.contains(day) ? .white : .grayline.opacity(0.6))
                                             .clipShape(Circle())
                                     }
-                                    .padding(.trailing, 8)
+                                    //.padding(.trailing, 8)
                                 }
                             }
                             .padding(.horizontal)
                         }
+                        
                     }
-                    // MARK:  frequency
-                    
-                    Text(frequency)
-                        .foregroundStyle(.gray)
-                    Spacer()
+                
                 }
             }
             .frame(alignment: .top)
