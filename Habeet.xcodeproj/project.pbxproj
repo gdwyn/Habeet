@@ -13,6 +13,7 @@
 		CE4477482B0A866600A8C14D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE4477472B0A866600A8C14D /* Assets.xcassets */; };
 		CE44774B2B0A866600A8C14D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE44774A2B0A866600A8C14D /* Preview Assets.xcassets */; };
 		CE450CA32B0E2A5500607EDC /* CircleChart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE450CA22B0E2A5500607EDC /* CircleChart.swift */; };
+		CE9A7D302B00462A002AF23D /* WeekNumberCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9A7D2F2B00462A002AF23D /* WeekNumberCircle.swift */; };
 		CEC19E272B0CD09C008E6091 /* WeekDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC19E262B0CD09C008E6091 /* WeekDays.swift */; };
 		CEE7A9842B0A933000D249BF /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE7A9832B0A933000D249BF /* Home.swift */; };
 		CEE7A9872B0A966200D249BF /* HabitItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE7A9862B0A966200D249BF /* HabitItem.swift */; };
@@ -31,6 +32,7 @@
 		CE4477472B0A866600A8C14D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE44774A2B0A866600A8C14D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE450CA22B0E2A5500607EDC /* CircleChart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircleChart.swift; sourceTree = "<group>"; };
+		CE9A7D2F2B00462A002AF23D /* WeekNumberCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekNumberCircle.swift; sourceTree = "<group>"; };
 		CEC19E262B0CD09C008E6091 /* WeekDays.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekDays.swift; sourceTree = "<group>"; };
 		CEE7A9832B0A933000D249BF /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
 		CEE7A9862B0A966200D249BF /* HabitItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitItem.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				CEE7A98C2B0A9ED000D249BF /* HabitView.swift */,
 				CEE7A9902B0ABD9900D249BF /* CustomButton.swift */,
 				CE450CA22B0E2A5500607EDC /* CircleChart.swift */,
+				CE9A7D2F2B00462A002AF23D /* WeekNumberCircle.swift */,
 			);
 			path = widgets;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 				CEC19E272B0CD09C008E6091 /* WeekDays.swift in Sources */,
 				CEE7A9932B0ACB3300D249BF /* Habits.swift in Sources */,
 				CE450CA32B0E2A5500607EDC /* CircleChart.swift in Sources */,
+				CE9A7D302B00462A002AF23D /* WeekNumberCircle.swift in Sources */,
 				CEE7A9872B0A966200D249BF /* HabitItem.swift in Sources */,
 				CEE7A9912B0ABD9900D249BF /* CustomButton.swift in Sources */,
 				CEE7A9842B0A933000D249BF /* Home.swift in Sources */,
