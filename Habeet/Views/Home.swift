@@ -17,9 +17,7 @@ struct Home: View {
     @State private var progress = 0.0
     
     @State private var displayedDay = ""
-    
-    @State private var habitIsDone = false
-    
+        
     var completedHabits: Int {
             habits.items.filter { $0.isDone }.count
         }
@@ -27,8 +25,6 @@ struct Home: View {
     var totalHabits: Int {
             habits.items.count
         }
-    
-    
     
     var filteredHabitsCount: Int {
         let filteredHabits = habits.items.filter { $0.days.contains(displayedDay) }
@@ -45,10 +41,11 @@ struct Home: View {
             
             HStack {
                 VStack (alignment: .leading, spacing: 8) {
-                    Text("Hey 👋")
-                        .font(.title2.bold())
-                    Text("Let's build some good habits")
-                        .font(.callout)
+                    
+                    Text("🔥  \(completedHabits)")
+                        .font(.title3.bold())
+                    Text("Total habits completed")
+                        .font(.subheadline)
                         .foregroundStyle(.gray)
                 }
                 
@@ -70,7 +67,9 @@ struct Home: View {
                             ForEach(weekDays.currentWeek, id: \.self) { day in
                                 
                                 Button {
-                                    displayedDay = weekDays.extractDate(date: day, format:"EEE")
+                                    withAnimation{
+                                        displayedDay = weekDays.extractDate(date: day, format:"EEE")
+                                    }
                                 } label: {
                                     
                                 VStack (spacing: 10) {
@@ -81,7 +80,7 @@ struct Home: View {
                                     ZStack {
                                         Text(weekDays.extractDate(date: day, format: "dd"))
                                             .font(.subheadline)
-                                            .foregroundStyle((weekDays.extractDate(date: day, format: "dd")) == (weekDays.extractDate(date: Date(), format: "dd")) ? .white : .gray)
+                                            .foregroundStyle((weekDays.extractDate(date: day, format: "EEE")) == displayedDay ? .white : .gray)
                                         
                                         if (weekDays.extractDate(date: day, format: "EEE")) == displayedDay {
                                             WeekNumberCircle(
@@ -137,13 +136,25 @@ struct Home: View {
                 .listRowSeparator(.hidden)
                 
             } else {
-                // improve ui
-                Text("No habits for today")
-                    .foregroundColor(.gray)
-                    .padding(.bottom, 1)
-                    .listRowSeparator(.hidden)
+                VStack(spacing: 12) {
+                    Text("🪫")
+                        .font(.largeTitle)
+                    Text("No habit yet")
+                        .foregroundColor(.gray)
+                        .padding(.bottom, 1)
+                        .listRowSeparator(.hidden)
+                }
+                .padding(.vertical, 90)
+                .frame(maxWidth: .infinity)
+                .background {
+                    Color.gray.opacity(0.1)
+                }
+                .cornerRadius(18)
+                .listRowSeparator(.hidden)
+
 
             }
+            
 
            
 
